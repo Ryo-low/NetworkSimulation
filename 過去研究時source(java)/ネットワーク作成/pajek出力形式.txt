@@ -1,0 +1,5 @@
+*Vertices ノード数
+ID "名前" x座標 y座標
+
+*Vertices
+ノードID ノードID
