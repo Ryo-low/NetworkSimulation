@@ -25,10 +25,13 @@ bool RNmake::make_network()
 {
 	bool retVal = true;
 	for( unsigned int linkNo = INT_ZERO; linkNo <= _allLinkNum; ++linkNo ){
-		unsigned int nodeA = INT_ZERO;
-		unsigned int nodeB = INT_ZERO;
-		select_node( nodeA, nodeB );
+		bool saveFlag = false;
+		while( saveFlag == false ){
+			unsigned int	nodeA	= INT_ZERO;
+			unsigned int	nodeB	= INT_ZERO;
+			select_node( nodeA, nodeB );
 
+		}
 	}
 
 }
@@ -36,13 +39,13 @@ bool RNmake::make_network()
 void RNmake::select_node( unsigned int& nodeA, unsigned int& nodeB )
 {
 	random_device				rnd;
-	mt19937						mt(rnd());
-	uniform_int_distribution<>	randFormOneToNomeNum(INT_ONE, _nodeNum);
+	mt19937						mt( rnd() );
+	uniform_int_distribution<>	randFormOneToNomeNum( INT_ONE, _nodeNum );
 	nodeA	= INT_ZERO;
 	nodeB	= INT_ZERO;
 	while( nodeA == nodeB ){
-		nodeA	= randFormOneToNomeNum(mt);
-		nodeB	= randFormOneToNomeNum(mt);
+		nodeA	= randFormOneToNomeNum( mt );
+		nodeB	= randFormOneToNomeNum( mt );
 	}
 	if( nodeA > nodeB ){
 		unsigned int tmp = INT_ZERO;

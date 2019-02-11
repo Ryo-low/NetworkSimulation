@@ -9,19 +9,18 @@ public:
 	~RNmake();
 
 	bool create(unsigned int nodeNum, unsigned int averageLinkNum);
-
+		
+	/*set-get*/
+	unsigned int	get_nodeNum();
+	unsigned int	get_averageLinkNum();
+	NodeList		get_nodeList();
+	LinkList		get_linkList();
 private:
 // function
 	// ネットワーク作成
 	bool make_network();
 	// リンク相手作成
 	void select_node(unsigned int& nodeA, unsigned int& nodeB);
-	
-	/*set-get*/
-	unsigned int	get_nodeNum();
-	unsigned int	get_averageLinkNum();
-	NodeList		get_nodeList();
-	LinkList		get_linkList();
 
 // variable
 	unsigned int	_nodeNum;

@@ -16,7 +16,7 @@ public:
 	PajekFormat();
 	~PajekFormat();
 
-	bool output_network(NodeList nodeList, LinkList linkList);
+	void output_network(NodeList nodeList, LinkList linkList);
 private:
 
 };
