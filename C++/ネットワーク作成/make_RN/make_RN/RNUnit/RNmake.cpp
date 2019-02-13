@@ -17,7 +17,16 @@ bool RNmake::create( unsigned int nodeNum, unsigned int averageLinkNum )
 	_averageLinkNum	= averageLinkNum;
 	_allLinkNum		= (unsigned int)(_nodeNum * _averageLinkNum * 0.5);
 	retVal			= make_network();
-
+	for( unsigned int nodeNo = INT_ZERO; nodeNo <= _nodeNum; ++nodeNo ){
+		// ノードリスト作成
+		NODE_DATA oneNode;
+		oneNode.nodeNo		= nodeNo;
+		oneNode.nodeName	= to_string( nodeNo );
+		_nodeList.push_back( oneNode );
+		// 空でリンクリストを作成
+		vector<int>	empty;
+		_linkList[nodeNo]	= empty;
+	}
 	return retVal;
 }
 
@@ -26,14 +35,24 @@ bool RNmake::make_network()
 	bool retVal = true;
 	for( unsigned int linkNo = INT_ZERO; linkNo <= _allLinkNum; ++linkNo ){
 		bool saveFlag = false;
+		unsigned int	nodeA	= INT_ZERO;
+		unsigned int	nodeB	= INT_ZERO;
+		vector<int>		destNodeList;
 		while( saveFlag == false ){
-			unsigned int	nodeA	= INT_ZERO;
-			unsigned int	nodeB	= INT_ZERO;
 			select_node( nodeA, nodeB );
-
+			destNodeList	= _linkList[nodeA];
+			// リンク先ノード配列を検索し、
+			// リンク候補ノードが存在しない場合は追加
+			if( find(destNodeList.begin(), destNodeList.end(), nodeB) == destNodeList.end() ){
+				saveFlag = true;
+				destNodeList.push_back( nodeB );
+				_linkList[nodeA] = destNodeList;
+			}
 		}
+		
 	}
 
+	return retVal;
 }
 
 void RNmake::select_node( unsigned int& nodeA, unsigned int& nodeB )

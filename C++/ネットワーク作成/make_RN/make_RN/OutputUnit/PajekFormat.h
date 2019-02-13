@@ -5,18 +5,23 @@
 
 */
 #include "../Common.h"
+#include<fstream>
 
-#define		NETWORK_NAME			"RN"
+#define		NETWORK_NAME			"RN-"
+#define		FILENAME_NODE			"N"
+#define		FILENAME_LINK			"K"
 #define		REPRES_PAJEK_FIRST		"*Vertices"
 #define		REPRES_PAJEK_SECOND		"*Edges"
 
 class PajekFormat
 {
 public:
-	PajekFormat();
+	PajekFormat(unsigned int nodeNum, unsigned int averageLinkNum);
 	~PajekFormat();
 
 	void output_network(NodeList nodeList, LinkList linkList);
 private:
-
+	unsigned int	_nodeNum;
+	unsigned int	_averageLinkNum;
+	string			_fileName;
 };

@@ -19,7 +19,7 @@ int main(int argc, char* args[])
 
 	RNmake* rnMake = new RNmake();
 	if( rnMake->create( nodeNum, averageLinkNum ) == true ){
-		PajekFormat* pajekFormat = new PajekFormat;
+		PajekFormat* pajekFormat = new PajekFormat( nodeNum, averageLinkNum );
 		pajekFormat->output_network( rnMake->get_nodeList(), rnMake->get_linkList() );
 	}
 	return 0;
