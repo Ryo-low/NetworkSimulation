@@ -16,28 +16,29 @@ bool RNmake::create( unsigned int nodeNum, unsigned int averageLinkNum )
 	_nodeNum		= nodeNum;
 	_averageLinkNum	= averageLinkNum;
 	_allLinkNum		= (unsigned int)(_nodeNum * _averageLinkNum * 0.5);
-	retVal			= make_network();
-	for( unsigned int nodeNo = INT_ZERO; nodeNo <= _nodeNum; ++nodeNo ){
+	for( unsigned int nodeNo = INT_ONE; nodeNo <= _nodeNum; ++nodeNo ){
 		// ノードリスト作成
 		NODE_DATA oneNode;
 		oneNode.nodeNo		= nodeNo;
 		oneNode.nodeName	= to_string( nodeNo );
 		_nodeList.push_back( oneNode );
 		// 空でリンクリストを作成
-		vector<int>	empty;
+		vector<unsigned int>	empty;
 		_linkList[nodeNo]	= empty;
 	}
+
+	retVal			= make_network();
 	return retVal;
 }
 
 bool RNmake::make_network()
 {
 	bool retVal = true;
-	for( unsigned int linkNo = INT_ZERO; linkNo <= _allLinkNum; ++linkNo ){
+	for( unsigned int linkNo = INT_ZERO; linkNo < _allLinkNum; ++linkNo ){
 		bool saveFlag = false;
 		unsigned int	nodeA	= INT_ZERO;
 		unsigned int	nodeB	= INT_ZERO;
-		vector<int>		destNodeList;
+		vector<unsigned int>	destNodeList;
 		while( saveFlag == false ){
 			select_node( nodeA, nodeB );
 			destNodeList	= _linkList[nodeA];

@@ -5,14 +5,14 @@
 using namespace std;
 
 struct NODE_DATA{
-	int		nodeNo;
-	string	nodeName;
-	string	posX;
-	string	posY;
+	unsigned int	nodeNo;
+	string			nodeName;
+	string			posX;
+	string			posY;
 };
 
 typedef vector<NODE_DATA> NodeList;
-typedef map<int, vector<int>> LinkList;
+typedef map<unsigned int, vector<unsigned int>> LinkList;
 
 #define		INT_ZERO		0
 #define		INT_ONE			1

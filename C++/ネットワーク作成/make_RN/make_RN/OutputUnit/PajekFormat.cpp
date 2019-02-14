@@ -17,6 +17,7 @@ void PajekFormat::output_network( NodeList nodeList, LinkList linkList )
 		+ to_string(_averageLinkNum) + FILENAME_LINK + ".txt";
 	ofstream outputFile(_fileName);
 
+	// ノードリスト出力
 	outputFile << REPRES_PAJEK_FIRST << " " << _nodeNum << endl;
 	for( unsigned int nodeNo = INT_ZERO; nodeNo < _nodeNum; ++nodeNo ){
 		outputFile << nodeList[nodeNo].nodeNo << " ";
@@ -24,6 +25,14 @@ void PajekFormat::output_network( NodeList nodeList, LinkList linkList )
 		outputFile << nodeList[nodeNo].posX << " ";
 		outputFile << nodeList[nodeNo].posY << endl;
 	}
-
 	
+	// リンクリスト出力
+	outputFile << REPRES_PAJEK_SECOND << endl;
+	for( unsigned int nodeNo = INT_ZERO; nodeNo < _nodeNum; ++nodeNo ){
+		vector<unsigned int> distNodeList;
+		distNodeList = linkList[nodeNo];
+		for( vector<unsigned int>::iterator it = distNodeList.begin(); it != distNodeList.end(); ++it ){
+			outputFile << nodeNo << " " << *it << " " << 1 << endl;
+		}
+	}
 }
