@@ -18,10 +18,10 @@ int main(int argc, char* args[])
 	}
 	chrono::system_clock::time_point  start, end;
 	start = chrono::system_clock::now();
-	RNmake* rnMake = new RNmake();
-	if (rnMake->create(nodeNum, averageLinkNum) == true) {
+	BAmake* baMake = new BAmake();
+	if (baMake->create(nodeNum, averageLinkNum) == true) {
 		PajekFormat* pajekFormat = new PajekFormat(nodeNum, averageLinkNum);
-		pajekFormat->output_network(rnMake->get_nodeList(), rnMake->get_linkList());
+		pajekFormat->output_network(baMake->get_nodeList(), baMake->get_linkList());
 	}
 	end = chrono::system_clock::now();
 	double elapsed = (double)chrono::duration_cast<chrono::milliseconds>(end - start).count();
