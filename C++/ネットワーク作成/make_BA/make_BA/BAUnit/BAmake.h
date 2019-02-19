@@ -9,7 +9,7 @@ public:
 	BAmake();
 	~BAmake();
 
-	bool create(unsigned int nodeNum, unsigned int averageLinkNum);
+	void create(unsigned int nodeNum, unsigned int averageLinkNum);
 
 	/*set-get*/
 	unsigned int	get_nodeNum();
@@ -19,7 +19,7 @@ public:
 private:
 	// function
 		// ネットワーク作成
-	bool make_network();
+	void make_network();
 	// リンク相手作成
 	void select_node(vector<unsigned int>& destNodeList);
 	// リンク情報作成
@@ -28,7 +28,7 @@ private:
 	// variable
 	unsigned int			_nodeNum;
 	unsigned int			_averageLinkNum;
-	unsigned int			_oneNodeLinkNum;
+	unsigned int			_oneNodeLinkCount;
 	NodeList				_nodeList;
 	LinkList				_linkList;
 	vector<unsigned int>	_selectNodeList;

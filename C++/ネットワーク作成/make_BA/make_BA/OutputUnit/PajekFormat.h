@@ -7,7 +7,7 @@
 #include "../Common.h"
 #include<fstream>
 
-#define		NETWORK_NAME			"RN-"
+#define		NETWORK_NAME			"BA-"
 #define		FILENAME_NODE			"N"
 #define		FILENAME_LINK			"K"
 #define		REPRES_PAJEK_FIRST		"*Vertices"

@@ -16,3 +16,4 @@ typedef map<unsigned int, vector<unsigned int>> LinkList;
 
 #define		INT_ZERO		0
 #define		INT_ONE			1
+#define		ARY_ADJUST		1
