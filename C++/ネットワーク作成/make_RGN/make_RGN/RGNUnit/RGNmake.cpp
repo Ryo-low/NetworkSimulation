@@ -1,22 +1,29 @@
 #include "RGNmake.h"
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 RGNmake::RGNmake()
 {
-	_nodeNum = INT_ZERO;
-	_averageLinkNum = INT_ZERO;
-	_oneNodeLinkCount = INT_ZERO;
+	_nodeNum			= INT_ZERO;
+	_averageLinkNum		= INT_ZERO;
+	_scale				= INT_ZERO;
+	_communicationRange	= INT_ZERO;
 }
 
 RGNmake::~RGNmake()
 {
 }
 
-void RGNmake::create(unsigned int nodeNum, unsigned int averageLinkNum)
+void RGNmake::create(unsigned int nodeNum, unsigned int averageLinkNum, unsigned int scale)
 {
-	bool retVal = true;
-	_nodeNum = nodeNum;
-	_averageLinkNum = averageLinkNum;
-	_oneNodeLinkCount = (int)(averageLinkNum * 0.5);
+	bool retVal			= true;
+	_nodeNum			= nodeNum;
+	_averageLinkNum		= averageLinkNum;
+	_scale				= scale;
+	_communicationRange	= averageLinkNum * (scale * scale) / (M_PI * nodeNum);
+	random_device				rnd;
+	mt19937						mt(rnd());
+	uniform_int_distribution<>	randFormOneToNomeNum(INT_ZERO, scale);
 	for (unsigned int nodeNo = INT_ONE; nodeNo <= _nodeNum; ++nodeNo) {
 		// ノードリスト作成
 		NODE_DATA oneNode;
