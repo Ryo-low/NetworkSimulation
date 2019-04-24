@@ -16,13 +16,17 @@ int main(int argc, char* args[])
 		cout << "平均リンク数指定" << endl;
 		cin >> averageLinkNum;
 	}
+	// 処理時間計測
 	chrono::system_clock::time_point  start, end;
 	start = chrono::system_clock::now();
-	RNmake* rnMake = new RNmake();
-	if( rnMake->create( nodeNum, averageLinkNum ) == true ){
-		PajekFormat* pajekFormat = new PajekFormat( nodeNum, averageLinkNum );
-		pajekFormat->output_network( rnMake->get_nodeList(), rnMake->get_linkList() );
+
+	// RN作成開始
+	RNmake rnMake = RNmake();
+	if( rnMake.create( nodeNum, averageLinkNum ) == true ){
+		PajekFormat pajekFormat = PajekFormat( nodeNum, averageLinkNum );
+		pajekFormat.output_network( rnMake.get_nodeList(), rnMake.get_linkList() );
 	}
+	// 計測終了
 	end = chrono::system_clock::now();
 	double elapsed = (double)chrono::duration_cast<chrono::milliseconds>(end-start).count();
 	cout << elapsed << "millisec" << endl;

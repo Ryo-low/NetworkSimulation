@@ -29,8 +29,7 @@ void PajekFormat::output_network( NodeList nodeList, LinkList linkList )
 	// リンクリスト出力
 	outputFile << REPRES_PAJEK_SECOND << endl;
 	for( unsigned int nodeNo = INT_ZERO; nodeNo < _nodeNum; ++nodeNo ){
-		vector<unsigned int> distNodeList;
-		distNodeList = linkList[nodeNo];
+		vector<unsigned int>& distNodeList = linkList[nodeNo];
 		for( vector<unsigned int>::iterator it = distNodeList.begin(); it != distNodeList.end(); ++it ){
 			outputFile << nodeNo << " " << *it << " " << 1 << endl;
 		}
