@@ -19,15 +19,12 @@ void BAmake::create(unsigned int nodeNum, unsigned int averageLinkNum)
 	_oneNodeLinkCount	= (int)(averageLinkNum * 0.5);
 	for( unsigned int nodeNo = INT_ONE; nodeNo <= _nodeNum; ++nodeNo ){
 		// ノードリスト作成
-		NODE_DATA oneNode;
-		oneNode.nodeNo = nodeNo;
-		oneNode.nodeName = to_string( nodeNo );
-		_nodeList.push_back(oneNode);
-		// 空でリンクリストを作成
-		vector<unsigned int>	empty;
-		_linkList[nodeNo] = empty;
+		_nodeList.emplace_back();
+		NODE_DATA& oneNode	= _nodeList.back();
+		oneNode.nodeNo		= nodeNo;
+		oneNode.nodeName	= to_string( nodeNo );
 	}
-
+	// ネットワーク作成
 	make_network();
 }
 
@@ -57,7 +54,7 @@ void BAmake::select_node(vector<unsigned int>& destNodeList)
 {
 	destNodeList.clear();
 	random_device				rnd;
-	mt19937						mt(rnd());
+	mt19937						mt( rnd() );
 	uniform_int_distribution<>	randFormOneToNomeNum( INT_ZERO, ((int)_selectNodeList.size() - ARY_ADJUST) );
 
 	while( destNodeList.size() < _oneNodeLinkCount ){
