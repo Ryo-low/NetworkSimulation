@@ -2,7 +2,8 @@
 #include "../Common.h"
 #include <random>
 #define  FIRST_NODE_NUM		4		// 初期ノード数
-#define  PAJEK_MATCH_SCALE	1		// スケール
+#define  SCALE_MIN			0.0		// スケール最小値
+
 
 class RGNmake {
 public:
@@ -10,7 +11,7 @@ public:
 	RGNmake();
 	~RGNmake();
 
-	void create(unsigned int nodeNum, unsigned int averageLinkNum, unsigned int scale = PAJEK_MATCH_SCALE);
+	void create(unsigned int nodeNum, unsigned int averageLinkNum, double scale = PAJEK_MATCH_SCALE);
 
 	/*set-get*/
 	unsigned int	get_nodeNum();
@@ -21,15 +22,13 @@ private:
 	// function
 		// ネットワーク作成
 	void make_network();
-	// リンク相手作成
-	void select_node(vector<unsigned int>& destNodeList);
-	// リンク情報作成
-	void make_link(unsigned int newNode, unsigned int destNode);
+	// リンク可能距離チェック
+	bool check_linkRange(NODE_DATA& baseNode, NODE_DATA& destNode);
 
 	// variable
 	unsigned int			_nodeNum;
 	unsigned int			_averageLinkNum;
-	unsigned int			_scale;
+	double					_scale;
 	double					_communicationRange;
 	NodeList				_nodeList;
 	LinkList				_linkList;
