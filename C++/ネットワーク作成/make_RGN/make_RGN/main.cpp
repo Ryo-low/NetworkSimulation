@@ -6,8 +6,8 @@ int main(int argc, char* args[])
 	unsigned int	averageLinkNum	= INT_ZERO;
 	double			scale			= PAJEK_MATCH_SCALE;
 	if( argc >= NEED_ARGS_NUM ){
-		nodeNum = atoi(args[ARGS_NODE_NUM]);
-		averageLinkNum = atoi(args[ARGS_AVERAGE_LINK_NUM]);
+		nodeNum = atoi( args[ARGS_NODE_NUM] );
+		averageLinkNum = atoi( args[ARGS_AVERAGE_LINK_NUM] );
 	}
 	else if(argc == SCALE_SPCIFY_ARGS){
 		scale = atof( args[ARGS_SCALE] );
@@ -20,8 +20,10 @@ int main(int argc, char* args[])
 		cout << "平均リンク数指定" << endl;
 		cin >> averageLinkNum;
 	}
+	// 処理時間計測開始
 	chrono::system_clock::time_point  start, end;
 	start = chrono::system_clock::now();
+	
 	// 作成
 	RGNmake rgnMake = RGNmake();
 	rgnMake.create( nodeNum, averageLinkNum, scale );
@@ -29,6 +31,7 @@ int main(int argc, char* args[])
 	PajekFormat pajekFormat = PajekFormat( nodeNum, averageLinkNum );
 	pajekFormat.output_network( rgnMake.get_nodeList(), rgnMake.get_linkList() );
 
+	// 処理時間計測終了
 	end = chrono::system_clock::now();
 	double elapsed = (double)chrono::duration_cast<chrono::milliseconds>(end - start).count();
 	cout << elapsed << "millisec" << endl;

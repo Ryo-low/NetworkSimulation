@@ -10,29 +10,33 @@ public:
 	// function
 	RGNmake();
 	~RGNmake();
-
+	// 情報生成関数
 	void create(unsigned int nodeNum, unsigned int averageLinkNum, double scale = PAJEK_MATCH_SCALE);
 
 	/*set-get*/
+	// ノード数取得
 	unsigned int	get_nodeNum();
+	// 平均リンク数取得
 	unsigned int	get_averageLinkNum();
+	// ノード情報リスト取得
 	NodeList		get_nodeList();
+	// リンク情報リスト取得
 	LinkList		get_linkList();
+
 private:
 	// function
-		// ネットワーク作成
+	// ネットワーク作成
 	void make_network();
 	// リンク可能距離チェック
-	bool check_linkRange(NODE_DATA& baseNode, NODE_DATA& destNode);
+	bool check_linkRange(const NODE_DATA& baseNode, const NODE_DATA& destNode);
 
 	// variable
-	unsigned int			_nodeNum;
-	unsigned int			_averageLinkNum;
-	double					_scale;
-	double					_communicationRange;
-	NodeList				_nodeList;
-	LinkList				_linkList;
-	vector<unsigned int>	_selectNodeList;
+	unsigned int			_nodeNum;				// ノード数
+	unsigned int			_averageLinkNum;		// 平均リンク数
+	double					_scale;					// ネットワークのスケール
+	double					_communicationRange;	// 通信可能距離
+	NodeList				_nodeList;				// ノード情報リスト
+	LinkList				_linkList;				// リンク情報リスト
 };
 
 /*set-get*/
