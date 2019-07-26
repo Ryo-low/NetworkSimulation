@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
+#include <list>
 #include <map>
+#include <unordered_map>
 #include <string>
 using namespace std;
 
@@ -13,10 +15,12 @@ struct NODE_DATA {
 };
 
 typedef vector<NODE_DATA> NodeList;
-typedef map<unsigned int, vector<unsigned int>> LinkList;
+typedef list<unsigned int> UintList;
+typedef unordered_map<unsigned int, UintList> LinkList;
 
 #define		INT_ZERO		0
 #define		INT_ONE			1
 #define		ARY_ADJUST		1		// 配列調整用
+#define		HALF_DIVISION	0.5		// 2で割るときの逆数算出結果
 
-#define  PAJEK_MATCH_SCALE	1.0		// pajekでの標準スケール
+#define		PAJEK_MATCH_SCALE	1.0		// pajekでの標準スケール

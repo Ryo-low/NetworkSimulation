@@ -29,6 +29,8 @@ private:
 	void make_network();
 	// リンク可能距離チェック
 	bool check_linkRange(const NODE_DATA& baseNode, const NODE_DATA& destNode);
+	// 指定ノードとのリンクを生成
+	void add_link(unsigned int baseNode, unsigned int destNode);
 
 	// variable
 	unsigned int			_nodeNum;				// ノード数
