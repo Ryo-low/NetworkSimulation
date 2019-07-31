@@ -18,15 +18,14 @@ RGNmake::~RGNmake()
 
 void RGNmake::create(unsigned int nodeNum, unsigned int averageLinkNum, double scale)
 {
-	bool retVal			= true;
 	_nodeNum			= nodeNum;
 	_averageLinkNum		= averageLinkNum;
 	_scale				= scale;
 	_communicationRange	= averageLinkNum * (scale * scale) / (M_PI * nodeNum);		// 通信可能距離算出
 	// ノードの分布をランダムで決めるため、以下を使用する
-	random_device		rnd;
-	mt19937				mt( rnd() );
-	uniform_int_distribution<>	nodePosition( SCALE_MIN, scale );
+	random_device				rnd;
+	default_random_engine		engine( rnd() );
+	uniform_real_distribution<>	nodePosition( SCALE_MIN, scale );
 	// ノードリスト作成
 	_nodeList.reserve( _nodeNum );
 	for( unsigned int nodeNo = INT_ONE; nodeNo <= _nodeNum; ++nodeNo ){
@@ -35,8 +34,8 @@ void RGNmake::create(unsigned int nodeNum, unsigned int averageLinkNum, double s
 		oneNode.nodeNo		= nodeNo;
 		oneNode.nodeName	= to_string( nodeNo );
 		// ノード座標決定
-		oneNode.posX		= nodePosition( mt );
-		oneNode.posY		= nodePosition( mt );
+		oneNode.posX		= nodePosition( engine );
+		oneNode.posY		= nodePosition( engine );
 	}
 	// ネットワーク作成
 	make_network();
@@ -44,7 +43,6 @@ void RGNmake::create(unsigned int nodeNum, unsigned int averageLinkNum, double s
 
 void RGNmake::make_network()
 {
-	bool retVal = true;
 	// 全ノードリンクチェック開始
 	for( unsigned int baseNodeNo = INT_ONE; baseNodeNo <= _nodeNum; ++baseNodeNo ){
 		// 自分自身を除く次ノードから行う
@@ -61,8 +59,8 @@ bool RGNmake::check_linkRange(const NODE_DATA& baseNode, const NODE_DATA& destNo
 {
 	bool	retVal		= false;
 	// ノード間距離算出
-	double	distanceX	= fabs( stod(baseNode.posX) - stod(destNode.posX) );
-	double	distanceY	= fabs( stod(baseNode.posY) - stod(destNode.posY) );
+	double	distanceX	= fabs( baseNode.posX - destNode.posX );
+	double	distanceY	= fabs( baseNode.posY - destNode.posY );
 	// スケールの半分を超えている場合、
 	// 反対側の距離でリンクする可能性がある
 	double	halfScale	= _scale * HALF_DIVISION;

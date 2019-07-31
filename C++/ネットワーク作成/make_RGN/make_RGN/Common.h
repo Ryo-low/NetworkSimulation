@@ -10,8 +10,8 @@ using namespace std;
 struct NODE_DATA {
 	unsigned int	nodeNo;		// ノード番号
 	string			nodeName;	// ノード名
-	string			posX;		// x座標
-	string			posY;		// y座標
+	double	posX;		// x座標
+	double	posY;		// y座標
 };
 
 typedef vector<NODE_DATA> NodeList;
