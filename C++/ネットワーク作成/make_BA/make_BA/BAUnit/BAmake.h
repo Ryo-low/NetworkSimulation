@@ -1,6 +1,5 @@
 #pragma once
 #include "../Common.h"
-#include <random>
 #define  FIRST_NODE_NUM		4		// 初期ノード数
 
 class BAmake {
@@ -8,30 +7,33 @@ public:
 	// function
 	BAmake();
 	~BAmake();
-
+	// BA生成
 	void create(unsigned int nodeNum, unsigned int averageLinkNum);
 
 	/*set-get*/
+	// ノード数取得
 	unsigned int	get_nodeNum();
+	// 平均リンク数取得
 	unsigned int	get_averageLinkNum();
+	// ノード情報取得
 	NodeList		get_nodeList();
+	// リンク情報取得
 	LinkList		get_linkList();
 private:
 	// function
 		// ネットワーク作成
 	void make_network();
 	// リンク相手作成
-	void select_node(vector<unsigned int>& destNodeList);
+	void select_node(UIntVec& destNodeList);
 	// リンク情報作成
 	void make_link(unsigned int newNode, unsigned int destNode);
 
-	// variable
-	unsigned int			_nodeNum;
-	unsigned int			_averageLinkNum;
-	unsigned int			_oneNodeLinkCount;
-	NodeList				_nodeList;
-	LinkList				_linkList;
-	vector<unsigned int>	_selectNodeList;
+	unsigned int	_nodeNum;				// ノード数
+	unsigned int	_averageLinkNum;		// 平均リンク数
+	unsigned int	_oneNodeLinkCount;		// リンク先選択個数
+	NodeList		_nodeList;				// 出力用ノードリスト
+	LinkList		_linkList;				// 出力用リンクリスト
+	UIntVec			_selectNodeList;		// リンク先選択用リンクリスト
 };
 
 /*set-get*/

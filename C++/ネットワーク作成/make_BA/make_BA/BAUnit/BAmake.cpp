@@ -1,4 +1,5 @@
 #include "BAmake.h"
+#include <random>
 
 BAmake::BAmake()
 {
@@ -16,9 +17,10 @@ void BAmake::create(unsigned int nodeNum, unsigned int averageLinkNum)
 	bool retVal			= true;
 	_nodeNum			= nodeNum;
 	_averageLinkNum		= averageLinkNum;
-	_oneNodeLinkCount	= (int)(averageLinkNum * 0.5);
+	_oneNodeLinkCount	= (int)(averageLinkNum * 0.5);		// 1ノードごとのリンク数設定
+	// ノードリスト作成
+	_nodeList.reserve( nodeNum );
 	for( unsigned int nodeNo = INT_ONE; nodeNo <= _nodeNum; ++nodeNo ){
-		// ノードリスト作成
 		_nodeList.emplace_back();
 		NODE_DATA& oneNode	= _nodeList.back();
 		oneNode.nodeNo		= nodeNo;
@@ -31,7 +33,7 @@ void BAmake::create(unsigned int nodeNum, unsigned int averageLinkNum)
 void BAmake::make_network()
 {
 	bool retVal = true;
-	// 4node完全グラフ
+	// 4node完全グラフ作成
 	for( unsigned int nodeNo = INT_ONE; nodeNo < FIRST_NODE_NUM; ++nodeNo ){
 		for( unsigned int destNode = FIRST_NODE_NUM; destNode >= INT_ONE; --destNode){
 			if( nodeNo == destNode ){
@@ -40,23 +42,26 @@ void BAmake::make_network()
 			make_link( destNode, nodeNo );
 		}
 	}
-
+	// ノード5からリンク情報生成
 	for( unsigned int nodeNo = FIRST_NODE_NUM + INT_ONE; nodeNo <= _nodeNum; ++nodeNo ){
-		vector<unsigned int> destNodeList;
+		UIntVec destNodeList;
+		// リンク先ノード決定
 		select_node( destNodeList );
-		for( vector<unsigned int>::iterator it = destNodeList.begin(); it != destNodeList.end(); ++it ){
+		// リンク情報生成
+		for( UIntVec::iterator it = destNodeList.begin(); it != destNodeList.end(); ++it ){
 			make_link( nodeNo, *it );
 		}
 	}
 }
 
-void BAmake::select_node(vector<unsigned int>& destNodeList)
+void BAmake::select_node(UIntVec& destNodeList)
 {
 	destNodeList.clear();
 	random_device				rnd;
 	mt19937						mt( rnd() );
 	uniform_int_distribution<>	randFormOneToNomeNum( INT_ZERO, ((int)_selectNodeList.size() - ARY_ADJUST) );
-
+	// リンクしているノードのリストからランダムで
+	// 平均リンク数/2 だけリンク先を選ぶ
 	while( destNodeList.size() < _oneNodeLinkCount ){
 		unsigned int destNode = _selectNodeList[randFormOneToNomeNum(mt)];
 		if( find(destNodeList.begin(), destNodeList.end(), destNode) == destNodeList.end() ){
@@ -68,10 +73,10 @@ void BAmake::select_node(vector<unsigned int>& destNodeList)
 
 void BAmake::make_link(unsigned int newNode, unsigned int destNode)
 {
-	vector<unsigned int> destNodeList = _linkList[destNode];
+	// 出力用リンク情報
+	UIntVec& destNodeList = _linkList[destNode - ARY_ADJUST];
 	destNodeList.push_back( newNode );
-	_linkList[destNode] = destNodeList;
-
+	// リンク先選択用リンク情報
 	_selectNodeList.push_back( newNode );
 	_selectNodeList.push_back( destNode );
 }

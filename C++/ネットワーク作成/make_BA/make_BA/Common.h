@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include <map>
+#include <unordered_map>
 #include <string>
 using namespace std;
 
@@ -12,7 +12,8 @@ struct NODE_DATA {
 };
 
 typedef vector<NODE_DATA> NodeList;
-typedef map<unsigned int, vector<unsigned int>> LinkList;
+typedef vector<unsigned int> UIntVec;
+typedef unordered_map<unsigned int, UIntVec> LinkList;
 
 #define		INT_ZERO		0
 #define		INT_ONE			1

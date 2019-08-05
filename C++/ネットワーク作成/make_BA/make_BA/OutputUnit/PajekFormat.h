@@ -1,11 +1,10 @@
 #pragma once
 /*
 出力ネットワーク：ランダムネットワーク
-ファイル名：RNノード数N平均リンク数k.txt
+ファイル名：BA-ノード数N平均リンク数k.txt
 
 */
 #include "../Common.h"
-#include<fstream>
 
 #define		NETWORK_NAME			"BA-"
 #define		FILENAME_NODE			"N"
